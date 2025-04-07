@@ -1,0 +1,26 @@
+version: '3'
+
+# services is an object in which each key represents a different container that we want to run 
+services:
+  # our nodeapp container 
+  nodeapp:
+    # build says: build the Dockerfile is the following directory # or you can use `image:` to use an image directly
+    build: .
+    # define the port forwarding configuration
+    ports:
+      - "5000:8080"
+    
+  # we can have a seprerate container running a different process (like a database) here like commented
+  #mongodb
+    #image: "mysql" # this gives the `mysql` image to composer to run it
+    #ports:
+      #-5005:80
+    #environment: # sets the enviroment variables in this object
+      #MYSQL_ROOT_PASSWORD: PASSWORD # ${{SECRET}}
+    #volumes:
+      #- db-data:/foo
+
+# volumes object defines the volumes
+volumes:
+  # a volume with the name "db-data:" you can mount it to any container in a "volumes" object
+  db-data:
