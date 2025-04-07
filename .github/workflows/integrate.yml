@@ -4,7 +4,8 @@ name: CI_continuousIntegration
 # on objects: tells the tool on which events it runs the jobs 
 on:
   # so this objects contains 
-  # push: # runs on push
+  push: # runs on push
+    branches:  [ main ]
   pull_request:
     #on what branch
     branches:  [ main ]
