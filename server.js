@@ -1,5 +1,4 @@
 console.log("hi");
-console.log("hi");
 
 import express from 'express';
 
