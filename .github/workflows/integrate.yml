@@ -1,0 +1,31 @@
+# the name of the workflow
+name: CI_continuousIntegration
+
+# on objects: tells the tool on which events it runs the jobs 
+on:
+  # so this objects contains 
+  # push: # runs on push
+  pull_request:
+    #on what branch
+    branches:  [ main ]
+    
+
+# every workflow should have one or more jobs
+jobs:
+  build_and_push_to_dockerhub: # this is the job name(arbitrary)
+    runs-on: ubuntu:latest # this for the tool (githib Actions) to run the commands # whicj vm the job runs on
+    steps: # the steps of the job
+      - name: checkout repo # optional name for the step. can be ommitted
+        uses: actions/checkout@v3 # officially maintained action (command). it brings your source code into current working dir. i.e. you can run cmd as you're in terminal locally
+
+      - name: Log in to DockerHub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build Docker image
+        run: docker build -t amressayyed/nodeappCntnr:1.0 .
+      
+      - name: Push Docker image
+        run: docker push amressayyed/nodeapp
